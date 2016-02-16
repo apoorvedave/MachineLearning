@@ -153,8 +153,844 @@ start
 Voting Perceptrons
 \end_layout
 
+\begin_layout Subsection
+Voting Perceptron
+\end_layout
+
+\begin_layout Standard
+The decision boundary from voting perceptron is Not Linear.
+ Plot:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Voting Perceptron Decision Boundary(T=10):
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 1.a.votingPerceptron.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Downsampled Voting Perceptron
+\end_layout
+
+\begin_layout Subsubsection
+Psuedocode
+\end_layout
+
+\begin_layout Standard
+One way to downsample the weights as obtained by normal voting perceptron
+ is to pick the latest L weights, discarding the previous ones.
+ The main idea behind this approach is that in the beginning of learning,
+ the weights of perceptrons will be premature.
+ The earliest of learned weights therefore tend to be of lesser importance
+ compared to the latest learned weights.
+ Therefore, in my algorithm, I have implemented the same voting perceptron
+ as mentioned in the HW but stored them in a FIFO queue, discarding the
+ earliest weights as and when a new weight vector is added to the queue.
+ Prediction is done as before, based on weighted majority vote:
+\begin_inset Formula 
+\[
+sign\left(\sum_{j=1}^{L}c_{j}sign(w_{j}.x)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Psuedocode for downsampled classifiers
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{Create queue $weightQueue$ to store the latest $L$ weight vectors,
+ and a corresponding queue for $survivalTimes$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{Set $maxLength$ of queues to $L$.
+ (These are FIFO.
+ If filled, earliest element pops out)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{Set initial weight $w_1=0$ to 0 and $c_1=0$.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For{i = 1 to T:}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{-Randomly permute the data points}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For{j = 1 to n:}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{$w=weightQueue.head$ //latest value}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If{$(x(i); y(i))$ is misclassied by $w$:}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{$w_{new} = w + y^{(i)}.x^{(i)}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{Push $w_{new}$ to head of $weightQueue$, 1 to $survivalTimes$.
+ Earliest elements will be popped if queue is full.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{Increment count for the head of $survivalTimes$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Return{$weightQueue$ and $survivalTimes$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Decision Boundary with Downsampled weights
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Decision Boundary with T=100 and L=20
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 1.b.1.votingPerceptron.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Averaged Perceptron
+\end_layout
+
+\begin_layout Subsubsection
+Psuedocode:
+\end_layout
+
+\begin_layout Standard
+The averaged perceptron is a simpler implementation of maintaining survival
+ times as a measure of good weight vectors.
+ In this case, we can keep a running average of all the weight vectors seen
+ till now.
+ If a weight correctly classifies a point, we add this weight vector to
+ a cumulative weight vector.
+ If it fails to classify the point correctly, we update the weight vector
+ as before (i.e.
+ 
+\begin_inset Formula $w_{l+1}=w_{l}+y^{(i)}*x^{(i)}$
+\end_inset
+
+) before adding it to cumulative weight vector.
+ We can then either average over the cumulative weight vector or just use
+ the sum directly to classify unseen data based on 
+\begin_inset Formula 
+\[
+sign(w_{cumulative}.x)\tag{where \ensuremath{w_{cumulative}=\sum c_{j}w_{j}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Pseudocode for the Averaged Perceptron
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{Create $w_{current}=0, w_{cumulative}=w_{current}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For{i = 1 to T:}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{-Randomly permute the data points}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For{j = 1 to n:}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If{$(x(i); y(i))$ is misclassied:}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{$w_{current} = w_{current} + y^{(i)}.x^{(i)}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{$w_{cumulative}=w_{cumulative}+w_{current}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Return{$w_{cumulative}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State{P.S.
+ Note here score is maintained as every correct classification updates $w_{cumul
+ative}$ by $w_{current}$, otherwise updates $w_{current}$ before adding
+ to $w_{cumulative}$.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Averaged Perceptron Decision Boundary:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Averaged Perceptron Decision Boundary with T=10
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 1.c.votingPerceptron.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Kernelized Perceptrons
+\end_layout
+
+\begin_layout Subsection
+Quadratic Kernel
+\end_layout
+
+\begin_layout Subsubsection
+Data Set 1 Decision Boundary
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Data Set 1 Decision Boundary with Quadratic Kernel
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.quad.data1.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Data Set 2 Decision Boundary
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Data Set 2 Decision Boundary with Quadratic Kernel
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.quad.data2.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+RBF Kernel
+\end_layout
+
+\begin_layout Subsubsection
+Data Set 1 Decision Boundaries
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+RBF, Data Set 1, 
+\begin_inset Formula $\sigma=0.05$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.rbf.data1.0.05.png.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+RBF, Data Set 1, 
+\begin_inset Formula $\sigma=0.08$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.rbf.data1.0.08.png.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+RBF, Data Set 1, 
+\begin_inset Formula $\sigma=0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.rbf.data1.0.1.png.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Data Set 2 Decision Boundaries
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+RBF, Data Set 2, 
+\begin_inset Formula $\sigma=0.05$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.rbf.data2.0.05.png.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+RBF, Data Set 2, 
+\begin_inset Formula $\sigma=0.08$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.rbf.data2.0.08.png.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+RBF, Data Set 2, 
+\begin_inset Formula $\sigma=0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 2.rbf.data2.0.1.png.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

@@ -184,6 +184,8 @@ Voting Perceptron Decision Boundary(T=10):
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 1.a.votingPerceptron.png
 	scale 60
@@ -422,6 +424,8 @@ Decision Boundary with T=100 and L=20
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 1.b.1.votingPerceptron.png
 	scale 60
@@ -636,6 +640,8 @@ Averaged Perceptron Decision Boundary with T=10
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 1.c.votingPerceptron.png
 	scale 60
@@ -682,6 +688,8 @@ Data Set 1 Decision Boundary with Quadratic Kernel
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.quad.data1.png
 	scale 60
@@ -702,13 +710,10 @@ Data Set 2 Decision Boundary
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -723,6 +728,8 @@ Data Set 2 Decision Boundary with Quadratic Kernel
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.quad.data2.png
 	scale 60
@@ -773,6 +780,8 @@ RBF, Data Set 1,
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.rbf.data1.0.05.png.png
 	scale 60
@@ -815,6 +824,8 @@ RBF, Data Set 1,
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.rbf.data1.0.08.png.png
 	scale 60
@@ -853,6 +864,8 @@ RBF, Data Set 1,
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.rbf.data1.0.1.png.png
 	scale 60
@@ -895,6 +908,8 @@ RBF, Data Set 2,
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.rbf.data2.0.05.png.png
 	scale 60
@@ -937,6 +952,8 @@ RBF, Data Set 2,
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.rbf.data2.0.08.png.png
 	scale 60
@@ -979,6 +996,8 @@ RBF, Data Set 2,
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename 2.rbf.data2.0.1.png.png
 	scale 60

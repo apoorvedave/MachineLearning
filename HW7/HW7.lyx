@@ -1,0 +1,655 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+% Variables to change every new document
+\newcommand{\hmwkClass}{CSE 250B} % Course/class
+\newcommand{\hmwkNumber}{5} % Assignment number
+
+% Constants to set once
+\newcommand{\hmwkAuthorName}{Apoorve Dave} % Your name
+\newcommand{\hmwkUserID}{a1dave@ucsd.edu} % User ID
+\newcommand{\hmwkStudentNumber}{A53103070} % Student number
+
+% Packages
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{algorithm,algpseudocode}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% General document properties
+\linespread{1.1} % Line spacing
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+% Required to not count titlepage in page numbering
+\addtocounter {page} {-1}
+
+% Make a simple command for use in document body
+\newcommand{\start}{
+\maketitle
+\thispagestyle{empty}
+\newpage
+}
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\rhead{\hmwkClass:\ Assignment\ \#\hmwkNumber}
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+% The following 2 commands setup the title page
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ Assignment\ \#\hmwkNumber}}\\
+\normalsize\vspace{0.1in}\small{ \today }\\
+\vspace{3in}
+}
+
+\author{
+  \textbf{\hmwkAuthorName} \\
+  \texttt{\hmwkUserID \hspace{0.1in}- \hmwkStudentNumber}
+}
+
+% Do not display standard date since we use a custom date
+\date{}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman lmodern
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip bigskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+start
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Singular values versus eigenvalues
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $Mv_{i}=U\Lambda V^{T}v_{i}=\sigma_{i}u_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $M^{T}u_{i}=V\Lambda U^{T}u_{i}=\sigma_{i}v_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $M^{T}Mv_{i}=M^{T}\sigma_{i}u_{i}=\sigma_{i}M^{T}u_{i}=\sigma_{i}^{2}v_{i}$
+\end_inset
+
+ , 
+\begin_inset Formula $MM^{T}u_{i}=M\sigma_{i}v_{i}=\sigma_{i}Mv_{i}=\sigma_{i}^{2}u_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+EVs
+\end_layout
+
+\begin_layout Standard
+From result of prev question for matrix 
+\begin_inset Formula $MM^{T}$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+MM^{T}u_{i}=\sigma_{i}^{2}u_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore Eigen values of 
+\begin_inset Formula $MM^{T}$
+\end_inset
+
+ are 
+\begin_inset Formula $\sigma_{i}^{2}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\in[1,p]$
+\end_inset
+
+ and its eigen vectors are vectors 
+\begin_inset Formula $u_{i}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\in[1,p]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+EV relations in 
+\begin_inset Formula $MM^{T}$
+\end_inset
+
+and 
+\begin_inset Formula $M^{T}M$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Similar to previous question, 
+\begin_inset Formula $M^{T}Mv_{i}=\sigma_{i}^{2}v_{i}$
+\end_inset
+
+.
+ The eigen values of 
+\begin_inset Formula $MM^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $M^{T}M$
+\end_inset
+
+ are same (i.e.
+ 
+\begin_inset Formula $\sigma_{i}^{2}$
+\end_inset
+
+) and eigen vectors 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Rank-k
+\end_layout
+
+\begin_layout Standard
+If matrix 
+\begin_inset Formula $M$
+\end_inset
+
+ has rank-
+\begin_inset Formula $k$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\sigma_{i}=\begin{cases}
+\neq0 & i\leq k\\
+=0 & i>k
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Rank-1 matrices
+\end_layout
+
+\begin_layout Subsection
+Rank-1 Approximation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\overset{\mathcircumflex}{M}=\sigma_{1}u_{1}v_{1}^{T}=\left[\begin{array}{ccc}
+1.57 & 2.08 & 2.59\\
+3.76 & 4.97 & 6.17
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Decomposition is not unique
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+M=uv^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can always scale down 
+\begin_inset Formula $u$
+\end_inset
+
+by a constant 
+\begin_inset Formula $c$
+\end_inset
+
+ and scale up 
+\begin_inset Formula $v$
+\end_inset
+
+ by the same constant 
+\begin_inset Formula $c$
+\end_inset
+
+ to get the same matrix M.
+ For eg.
+ let 
+\begin_inset Formula 
+\[
+a=(1/c)u,b=(c)v
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\implies M=uv^{T}=\frac{1}{c}.uv^{T}.c=ab^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can see that for different values of c, we get different values for vectors
+ 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ which are just rescaled versions of original vectors 
+\begin_inset Formula $u$
+\end_inset
+
+and 
+\begin_inset Formula $v$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Sum of rank-1 matrices
+\end_layout
+
+\begin_layout Standard
+Assuming 
+\begin_inset Formula $\sigma_{1}\geq\sigma_{2}\geq...\geq\sigma_{p}$
+\end_inset
+
+, the best rank-
+\begin_inset Formula $k$
+\end_inset
+
+ approximation will be given by 
+\begin_inset Formula $k$
+\end_inset
+
+ highest singular values and their corresponding vectors 
+\begin_inset Formula $u_{i},v_{i}\mid i\in[1,k]$
+\end_inset
+
+.
+ Therefore,
+\begin_inset Formula 
+\[
+M(rank-k)=\sigma_{1}u_{1}v{}_{1}^{T}+\sigma_{2}u_{2}v{}_{2}^{T}+...+\sigma_{k}u_{k}v{}_{k}^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Gram matrix
+\end_layout
+
+\begin_layout Subsection
+Gram Matrix:
+\begin_inset Formula 
+\[
+GramMatrix=B=\left(\begin{array}{cccc}
+1 & 1 & 1 & 1\\
+1 & 2 & 1 & 2\\
+1 & 1 & 2 & 2\\
+1 & 2 & 2 & 3
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Uniqueness
+\end_layout
+
+\begin_layout Standard
+Let Z be the matrix of points given i.e.
+\begin_inset Formula 
+\[
+Z=\left(\begin{array}{cccc}
+1 & 1 & 1 & 1\\
+0 & 0 & 1 & 1\\
+0 & 1 & 0 & 1
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then gram matrix is obtained by 
+\begin_inset Formula $B=Z^{T}Z$
+\end_inset
+
+.
+ Consider any orthogonal basis 
+\begin_inset Formula $O\in R^{3\times3}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $OO^{T}=I$
+\end_inset
+
+.
+\begin_inset Formula 
+\[
+B=Z^{T}Z=Z^{T}IZ=Z^{T}OO^{T}Z
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Or in other words:
+\begin_inset Formula 
+\[
+B=W^{T}W\tag{where \ensuremath{W=O^{T}Z}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here 
+\begin_inset Formula $W$
+\end_inset
+
+ represents any orthogonal tranformation of Z in any orthogonal basis O.
+ Thus 
+\begin_inset Formula $B$
+\end_inset
+
+ can be achieved by any orthogonal transformation 
+\begin_inset Formula $W$
+\end_inset
+
+ of the original points 
+\begin_inset Formula $Z$
+\end_inset
+
+ and hence the points which give 
+\begin_inset Formula $B$
+\end_inset
+
+ are not unique.
+\end_layout
+
+\begin_layout Section
+Classical multidimensional scaling
+\end_layout
+
+\begin_layout Subsection
+Original Graph
+\end_layout
+
+\begin_layout Standard
+This graph looks incorrect as the map seems to be rotated by 180 degrees.
+ (North Down).
+ The reason for this is SVD gives two orthogonal sets of directions (
+\begin_inset Formula $U$
+\end_inset
+
+and
+\begin_inset Formula $V$
+\end_inset
+
+) whereas the valid set of directions can be both (
+\begin_inset Formula $U$
+\end_inset
+
+ and 
+\begin_inset Formula $V$
+\end_inset
+
+) as well as (
+\begin_inset Formula $-U$
+\end_inset
+
+ and 
+\begin_inset Formula $-V$
+\end_inset
+
+) resulting in same decomposition of matrix.
+ Plotting the originally obtained graph below:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Original Graph
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename ClassicOriginal.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Correction
+\end_layout
+
+\begin_layout Standard
+This looked like the graph was inverted.
+ In other words, the directions 
+\begin_inset Formula $U$
+\end_inset
+
+and 
+\begin_inset Formula $V$
+\end_inset
+
+ have been negated.
+ After negating back all the data points the new graph looks like the following,
+ which seems reasonably correct.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+After Correction
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename ClassicCorrected.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mystery City is Chicago
+\end_layout
+
+\end_body
+\end_document
